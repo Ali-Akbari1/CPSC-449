@@ -1,4 +1,3 @@
-import qualified Distribution.InstalledPackageInfo as HelloWorld
 
 main :: IO ()
 main = putStrLn "Hello World"
@@ -9,4 +8,6 @@ ghci
 :cd In_Class
 :load HelloWorld.hs
 main
+
+To Exit ghci: ctrl + d
 -}
