@@ -8,7 +8,7 @@ multiply :: Int -> Int -> Int
 multiply _ 0 = 0
 multiply 0 _ = 0
 
--- Recursive multiplication, adding x to itself y times
+-- Recursive multiplication, adding x to itself y times or vice versa
 multiply x y 
     | y > 0         = x + multiply x (y-1)
     | otherwise     = y + multiply (x-1) y
