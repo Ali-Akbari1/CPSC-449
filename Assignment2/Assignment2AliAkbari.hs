@@ -35,7 +35,6 @@ movies = [Movie "Inception" 8.8 "Sci-Fi"
           , Movie "Toy Story" 8.3 "Animation"
           ]
 
-
 -- topRatedMovies function that returns movies with a rating above a threshold
 topRatedMovies :: [Movie] -> Float -> [String]
 
