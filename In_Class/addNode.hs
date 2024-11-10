@@ -1,9 +1,9 @@
 data BinaryTree = NilT | Node Int BinaryTree BinaryTree
 
-inTree :: BinaryTree -> Int -> Bool
-inTree NilT _ = False
-inTree (Node x leftTree rightTree) y
-    | x == y    = True
+inTree :: BinaryTree -> Int -> Bool 
+inTree NilT _ = False 
+inTree (Node x leftTree rightTree) y 
+    | x == y    = True 
     | otherwise = inTree leftTree y || inTree rightTree y
 
 addNode :: BinaryTree -> Int -> BinaryTree
@@ -16,6 +16,7 @@ myTree = Node 25 NilT
                  (Node 50 NilT
                           (Node 75 (Node 60 NilT NilT) NilT))
 
+newTree = addNode myTree 10
 main = do
-    print(inTree myTree elem)
+    print(inTree myTree 10)
     print(inTree newTree 10)
