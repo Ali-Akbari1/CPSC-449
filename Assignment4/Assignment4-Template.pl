@@ -1,7 +1,7 @@
 % CPSC 449 - Programming Paradigms
 % Assignment 4
-% [Student Name]
-% [Student ID]
+% Ali Akbari
+% 30171539
 
 % Problem 1 - interleave
 interleave(Xs, Ys, Zs) :-
