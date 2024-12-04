@@ -5,18 +5,27 @@
 
 % Problem 1 - interleave
 interleave(Xs, Ys, Zs) :-
-    % Your code here
+% interleave/3: Combines two lists by alternating their elements. 
+% If one list is longer, the remaining elements are appended to the result.
+interleave([], Ys, Ys).
+interleave(Xs, [], Xs).
+interleave([X|Xs], [Y|Ys], [X,Y|Zs]) :-
+    interleave(Xs, Ys, Zs).
+
+% Example queries:
+% ?- interleave([1,3,5], [2,4,6], Zs).
+% Zs = [1,2,3,4,5,6].
+% ?- interleave([a,c,e,g], [b,d], Zs).
+% Zs = [a,b,c,d,e,g].
+
 
 % Problem 2 - Smart Home Automation Challenge
 % Part A: Knowledge Base
-time_of_day(timeofday).
-
 room(roomName).
-
 device(someDevice, someRoom).
 
 % Part B: Initial State
-state(Time, Lights, Temperature, SecurityMode).
+state(Lights, Temperature, SecurityMode).
 
 % Part C: State Transition Rules
 turn_on_lights(CurrentState, Room, NewState) :-
