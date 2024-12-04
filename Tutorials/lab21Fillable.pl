@@ -59,15 +59,23 @@ borrowed(the_hobbit, charlie).
 borrowed(murder_on_the_orient_express, dave).
 
 % Write a query to find out the books that jk rowling has written
-
+?- book(X, jk_rowling).
 
 % Define a rule finds all books written by a specific author.
-
+books_by_author(Author, Book):- 
+    author(Author),
+    book(Book, Author).
 
 % Define a rule checks if a book is currently available in the library (i.e., not borrowed).
-
+is_available(Book):-
+    available(Book),
+    \+ borrowed(Book, _).
 
 %Define a rule that identifies people who have borrowed more than one book.
+borrowed_multiple_books(Person):- 
+    borrowed(Book1, Person),
+    borrowed(Book2, Person),
+    Book1 \= Book2.
 
 
 
