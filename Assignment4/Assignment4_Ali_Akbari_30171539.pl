@@ -168,35 +168,49 @@ tern(two).
 
 % Rules to ensure valid ternary structure
 tern(tern(X), tern(Y)) :- tern(X), tern(Y).
+tern(tern(X)) :- tern(X).
+tern(tern(X,Y)) :- tern(X), tern(Y).
 
 % Ternary to Natural Number Conversion
+% Base cases
 tern_nat(tern(zero), nat_zero).
 tern_nat(tern(one), succ(nat_zero)).
 tern_nat(tern(two), succ(succ(nat_zero))).
 
 % Recursive conversion for nested ternary numbers
-tern_nat(tern(tern(X), Y), Nat) :-
-    tern_nat(tern(X), PrevNat),
-    tern_nat(Y, LastNat),
-    multiply_and_add(PrevNat, LastNat, Nat).
+% Single argument case (handling leading zeros)
+tern_nat(tern(X), Nat) :-
+    tern_nat(X, SubNat),
+    multiply_by_three(SubNat, Nat).
 
-% Multiply by 3 and add
-multiply_and_add(nat_zero, N, N).
-multiply_and_add(succ(nat_zero), N, Res) :-
-    add_three_times(N, Res).
-multiply_and_add(succ(succ(nat_zero)), N, Res) :-
-    add_three_times(N, ThreeN),
-    add_nat(ThreeN, N, Res).
+% Two arguments case
+tern_nat(tern(X, Y), Nat) :-
+    tern_nat(X, SubNatX),
+    multiply_by_three(SubNatX, Multiplied),
+    tern_nat(Y, SubNatY),
+    add_nat(Multiplied, SubNatY, Nat).
 
-% Add the number three times
-add_three_times(N, Res) :-
-    add_nat(N, N, TwoN),
-    add_nat(TwoN, N, Res).
+% Inverse conversion - generate ternary from natural number
+tern_nat(Tern, Nat) :-
+    ground(Nat),
+    generate_tern(Tern, Nat).
+
+% Generate ternary number for a given natural number
+generate_tern(tern(two), succ(succ(nat_zero))).
+generate_tern(tern(one), succ(nat_zero)).
+generate_tern(tern(zero), nat_zero).
+generate_tern(tern(X, Y), Nat) :-
+    generate_tern(X, SubNatX),
+    multiply_by_three(SubNatX, Multiplied),
+    generate_tern(Y, SubNatY),
+    add_nat(Multiplied, SubNatY, Nat).
+
+% Multiply by 3 
+multiply_by_three(nat_zero, nat_zero).
+multiply_by_three(succ(N), Res) :-
+    multiply_by_three(N, Multiplied),
+    add_nat(Multiplied, succ(succ(succ(Multiplied))), Res).
 
 % Natural number addition
 add_nat(nat_zero, N, N).
 add_nat(succ(X), Y, succ(Z)) :- add_nat(X, Y, Z).
-
-% Reverse conversion (for generating ternary representations)
-tern_gen(Nat, Tern) :-
-    tern_nat(Tern, Nat).
