@@ -60,23 +60,23 @@ head_tail([Head|Tail], Head, Tail).
 % - Prolog splits the list into its first element (`Head`) and the rest (`Tail`) using the `|` operator.
 % - In this case, `1` is the head, and `[2, 3]` is the tail.
 
-% Example 3: Append two lists.
-append_list([], List, List). % Base case: Appending an empty list to another list returns the second list.
-append_list([Head|Tail], List, [Head|Result]) :- append_list(Tail, List, Result).
-% Usage:
-% ?- append_list([1, 2], [3, 4], Result).
-% Result = [1, 2, 3, 4].
-% Explanation:
-% 1. First call: `append_list([1, 2], [3, 4], Result)`, where `Head = 1` and `Tail = [2]`.
-% 2. Recursive call: `append_list([2], [3, 4], Result1)`.
-% 3. Recursive call: `append_list([], [3, 4], Result2)` (base case returns `[3, 4]`).
-% 4. Unwinding: `[2|[3, 4]] -> [1|[2, 3, 4]]`.
+    % Example 3: Append two lists.
+    append_list([], List, List). % Base case: Appending an empty list to another list returns the second list.
+    append_list([Head|Tail], List, [Head|Result]) :- append_list(Tail, List, Result).
+    % Usage:
+    % ?- append_list([1, 2], [3, 4], Result).
+    % Result = [1, 2, 3, 4].
+    % Explanation:
+    % 1. First call: `append_list([1, 2], [3, 4], Result)`, where `Head = 1` and `Tail = [2]`.
+    % 2. Recursive call: `append_list([2], [3, 4], Result1)`.
+    % 3. Recursive call: `append_list([], [3, 4], Result2)` (base case returns `[3, 4]`).
+    % 4. Unwinding: `[2|[3, 4]] -> [1|[2, 3, 4]]`.
 
-% Example 4: Reverse a list using recursion.
-reverse_list([], []). % Base case: Reversing an empty list returns an empty list.
-reverse_list([Head|Tail], Reversed) :-
-    reverse_list(Tail, ReversedTail), % Recursive step: Reverse the tail.
-    append_list(ReversedTail, [Head], Reversed). % Add the head to the reversed tail.
+    % Example 4: Reverse a list using recursion.
+    reverse_list([], []). % Base case: Reversing an empty list returns an empty list.
+    reverse_list([Head|Tail], Reversed) :-
+        reverse_list(Tail, ReversedTail), % Recursive step: Reverse the tail.
+        append_list(ReversedTail, [Head], Reversed). % Add the head to the reversed tail.
 % Usage:
 % ?- reverse_list([1, 2, 3], Result).
 % Result = [3, 2, 1].
