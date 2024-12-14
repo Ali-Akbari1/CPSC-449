@@ -15,21 +15,22 @@ data Coord = C Integer Integer
 -- 1.2 Now implement your own instance of Show for the data type which outputs a string formatted as: 
 -- "Coordinate - X: " ++ show x ++ " Y: " ++ show y
 instance Show Coord where
-    show (C x y) = undefined
+    show (C x y) = "Coordinate - X: " ++ show x ++ " Y: " ++ show y
 
 -- 1.3 Now implement your own instance of Eq for the data type which checks for equality in X and Y values.
 instance Eq Coord where
-    (C x1 y1) == (C x2 y2) = undefined
+    (C x1 y1) == (C x2 y2) = x1 == x2 && y1 == y2
 
 -- 1.4 Now implement your own instance of the Num typeclass for the data type
 instance Num Coord where
-    (C x1 y1) + (C x2 y2) = undefined
-    (C x1 y1) - (C x2 y2) = undefined
-    (C x1 y1) * (C x2 y2) = undefined
-    negate (C x y) = undefined
-    abs (C x y) = undefined
-    signum (C x y) = undefined
-    fromInteger n = undefined
+
+    (C x1 y1) + (C x2 y2) = C (x1 + x2) (y1 + y2)
+    (C x1 y1) - (C x2 y2) = C (x1 - x2) (y1 - y2)
+    (C x1 y1) * (C x2 y2) = C (x1 * x2) (y1 * y2)
+    negate (C x y) = C (negate x) (negate y)
+    abs (C x y) = C (abs x) (abs y)
+    signum (C x y) = C (signum x) (signum y)
+    fromInteger n = C n n
 
 -- 1.5 Now implement a typeclass called OriginDistance which contains a function declaration called
 -- distanceFromOrigin which takes some polymorphic input and returns a double
@@ -52,7 +53,8 @@ instance OriginDistance Coord where
 -}
 
 -- 2.1 Define a singly linked list recursive data type which derives show
-data LinkedList a = Nil  
+data LinkedList a = Nil | Cons (LinkedList a)
+    deriving Show
 
 -- 2.2 Implement a function to determine the length of a linkedlist
 sizeList :: LinkedList a -> Integer

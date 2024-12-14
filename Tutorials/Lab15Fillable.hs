@@ -33,7 +33,7 @@ instance Describable [a] where
 
 -- Question 4: Write a polymorphic function that uses type class constraints.
 areSimilar :: (Describable a) => a -> a -> Bool
-areSimilar x y = undefined
+areSimilar x y = similarTo x y
 
 -- Example usage:
 -- For example, for `areSimilar [1, 2] [3, 4]`, the output should be: True
@@ -52,7 +52,7 @@ areSimilar x y = undefined
 data Person = Person String Int  -- Name and age
 
 instance Show Person where
-    show (Person name age) = undefined
+    show (Person name age) = "Person: " ++ name ++ ", " ++ "Age: " ++ show age
 
 -- Example usage:
 -- For example, for `show (Person "Alice" 30)`, the output should be: "Person: Alice, Age: 30"
@@ -105,8 +105,8 @@ instance Enum Day where
 
 -- Question 9: Make `Day` an instance of `Bounded` where the bounds are `Monday` and `Sunday`.
 instance Bounded Day where
-    minBound = undefined
-    maxBound = undefined
+    minBound = Monday
+    maxBound = Sunday
 
 -- Example usage:
 -- For example, for `minBound :: Day`, the output should be: Monday
@@ -131,7 +131,7 @@ data Box a = Box String a  -- Label and value
 
 -- Question 12: Write a function that extracts the value from a `Box`.
 getValue :: Box a -> a
-getValue (Box _ value) = undefined
+getValue (Box _ value) = value
 
 -- Example usage:
 -- For example, for `getValue (Box "My Number" 42)`, the output should be: 42
@@ -144,14 +144,14 @@ getValue (Box _ value) = undefined
 -- Question 13: Write a polymorphic function that takes a list of any type and reverses it without using the `reverse` function.
 reverseList :: [a] -> [a]
 reverseList [] = []
-reverseList (x:xs) = undefined
+reverseList (x:xs) = reverseList xs ++ [x] 
 
 -- Example usage:
 -- For example, for `reverseList [1, 2, 3, 4]`, the output should be: [4, 3, 2, 1]
 
 -- Question 14: Write a polymorphic function that takes two lists and checks if their lengths are the same.
 sameLength :: [a] -> [b] -> Bool
-sameLength xs ys = undefined
+sameLength xs ys = length xs == length ys
 
 -- Example usage:
 -- For example, for `sameLength [1, 2, 3] ['a', 'b', 'c']`, the output should be: True
@@ -165,21 +165,21 @@ class Mergeable a where
 
 -- Question 16: Create an instance of `Mergeable` for lists, where the merge function concatenates two lists.
 instance Mergeable [a] where
-    merge xs ys = undefined
+    merge xs ys = xs ++ ys
 
 -- Example usage:
 -- For example, for `merge [1, 2] [3, 4]`, the output should be: [1, 2, 3, 4]
 
 -- Question 17: Create an instance of `Mergeable` for numbers, where the merge function adds two numbers.
 instance Mergeable Int where
-    merge x y = undefined
+    merge x y = x + y
 
 -- Example usage:
 -- For example, for `merge 10 20`, the output should be: 30
 
 -- Question 18: Write a polymorphic function that takes any two `Mergeable` values and merges them.
 mergeValues :: (Mergeable a) => a -> a -> a
-mergeValues x y = undefined
+mergeValues x y = merge x y
 
 -- Example usage:
 -- For example, for `mergeValues [1, 2] [3, 4]`, the output should be: [1, 2, 3, 4]

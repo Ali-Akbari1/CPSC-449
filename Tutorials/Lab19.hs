@@ -8,20 +8,20 @@
 --    Example: alwaysTrue 5, alwaysTrue "hello" -> True
 
 alwaysTrue :: a -> Bool
-alwaysTrue = undefined  -- Complete this function
+alwaysTrue _ = True  -- Complete this function
 
 -- 2. Define a function `applyTwice` that takes a function and an argument, and applies the function twice.
 --    Example: applyTwice (*2) 3 -> 12
 
 applyTwice :: (a -> a) -> a -> a
-applyTwice f x = undefined  -- Complete this function
+applyTwice f x = f ( f x)  -- Complete this function
 
 -- 3. The type of a function can guide how it must behave.
 --    Write a function `idList` that takes a list and returns the same list without inspecting its elements.
 --    Example: idList [1,2,3] -> [1,2,3]
 
 idList :: [a] -> [a]
-idList xs = undefined  -- Complete this function
+idList xs = xs -- Complete this function
 
 -- 4. Haskell supports higher-kinded types. Define a function `mapMaybe` that behaves like `map`,
 --    but works for the `Maybe` type. 
@@ -29,12 +29,14 @@ idList xs = undefined  -- Complete this function
 --             mapMaybe (+1) Nothing -> Nothing
 
 mapMaybe :: (a -> b) -> Maybe a -> Maybe b
-mapMaybe f ma = undefined  -- Complete this function
+mapMaybe f (Just x) = Just (f x)  -- Complete this function
+mapMaybe f ma = Nothing
 
 -- 5. Write a type signature for a function `composeThree` that composes three functions.
 --    The function itself is already defined for you. Add the correct type signature.
 
-composeThree f g h x = f (g (h x))  -- Add the type signature here
+composeThree :: (b -> c) -> (a -> b) -> (x -> a) -> x -> c  -- Add the type signature here
+composeThree f g h x = f (g (h x))
 
 -- 6. Define a function `applyIfTrue` that takes:
 --    - A boolean value (`Bool`),
@@ -47,7 +49,9 @@ composeThree f g h x = f (g (h x))  -- Add the type signature here
 --      applyIfTrue False (*2) 5 -> 5
 
 applyIfTrue :: Bool -> (a -> a) -> a -> a
-applyIfTrue = undefined  -- Complete this function
+applyIfTrue True f a = f (a)-- Complete this function
+applyIfTrue False f a = a
+
 
 -- 7. Using the `primes` list from before, implement a `twinPrimes` list which is a list
 --    of all tuples containing prime numbers (p, q) such that p - q = 2.

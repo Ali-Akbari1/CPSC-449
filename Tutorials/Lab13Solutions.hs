@@ -41,7 +41,8 @@ addOneFilterPos = filter (> 0) . map (+ 1)
 
 -- 4. Define a curried function getEvens which takes a list of numbers and filters the odd ones
 getEvens :: [Int] -> [Int]
-getEvens = filter ((== 0) . (`mod` 2))
+getEvens = filter even
+-- getEvens = filter ((== 0) . (`mod` 2))
 
 -- 5. define a function curry3 that performs the analogue of curry but for three arguments
 curry3 :: ((a, b, c) -> d) -> a -> b -> c -> d
